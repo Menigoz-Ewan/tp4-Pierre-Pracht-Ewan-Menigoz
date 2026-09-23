@@ -1,0 +1,70 @@
+---
+
+---
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Météo Filtre</title>
+    </head>
+    <body class="p-8">
+        <a href="/" class="text-blue-600 underline mb-4 inline-block"
+            >Retour à l'accueil</a
+        >
+        <h1 class="text-2xl font-bold mb-6">Analyse Météo</h1>
+
+        <div class="mb-6">
+            <label for="filtre-ville" class="font-bold mr-2"
+                >Filtrer par :</label
+            >
+            <select
+                name="filtre-ville"
+                id="filtre-ville"
+                class="border p-1 rounded"
+            >
+                <option value="">Tous</option>
+                <!-- Remplace ces options par les vraies valeurs de ton JSON -->
+                <option value="Besançon">Besançon</option>
+                <option value="Paris">Paris</option>
+            </select>
+        </div>
+
+        <div id="graphique-meteo"></div>
+
+        <script>
+            import * as Plot from "@observablehq/plot";
+            import meteo from "../assets/weather.json";
+
+            const selectFiltre = document.querySelector(
+                "#filtre-ville",
+            ) as HTMLSelectElement;
+
+            function renderPlot() {
+                const valeurFiltre = selectFiltre.value;
+                const div = document.querySelector(
+                    "#graphique-meteo",
+                ) as HTMLDivElement;
+
+                div.innerHTML = "";
+
+                const plot = Plot.plot({
+                    marks: [
+                        // Adapte 'x', 'y' et 'stroke' avec les vrais noms de colonnes de ton JSON
+                        Plot.dot(meteo, {
+                            x: "date",
+                            y: "temperature",
+                            stroke: "ville",
+                            filter: (d) =>
+                                valeurFiltre === "" || d.ville === valeurFiltre,
+                        }),
+                    ],
+                });
+
+                div.append(plot);
+            }
+
+            selectFiltre.addEventListener("change", renderPlot);
+            renderPlot();
+        </script>
+    </body>
+</html>
