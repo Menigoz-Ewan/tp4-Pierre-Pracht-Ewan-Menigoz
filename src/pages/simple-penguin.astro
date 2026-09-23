@@ -1,26 +1,53 @@
 ---
-
+import "../styles/global.css";
 ---
 
-<html lang="fr">
+<html lang="fr" data-theme="light">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Simple Penguin</title>
     </head>
-    <body class="p-8">
-        <a href="/" class="text-blue-600 underline mb-4 inline-block"
-            >Retour à l'accueil</a
-        >
-        <h1 class="text-2xl font-bold mb-6">Graphique des Manchots</h1>
+    <body class="bg-base-200 min-h-screen p-4 md:p-8">
+        <main class="container mx-auto max-w-5xl">
+            <div class="flex justify-between items-center mb-8">
+                <a href="/" class="btn btn-outline btn-primary"
+                    >Retour à l'accueil</a
+                >
+                <a href="/penguin-filtre" class="btn btn-primary"
+                    >Graphique suivant</a
+                >
+            </div>
 
-        <div id="graphique-penguins"></div>
+            <div class="card bg-base-100 shadow-xl border border-base-300">
+                <div class="card-body">
+                    <h1
+                        class="card-title text-3xl font-extrabold text-secondary mb-2"
+                    >
+                        Graphique des Manchots (Simple)
+                    </h1>
+                    <p class="opacity-75 mb-6">
+                        Comparaison de la longueur et de la profondeur du bec
+                        selon l'espèce de manchot.
+                    </p>
+
+                    <div
+                        id="graphique-penguins"
+                        class="overflow-x-auto w-full flex justify-center bg-white p-4 rounded-box border border-base-200"
+                    >
+                    </div>
+                </div>
+            </div>
+        </main>
 
         <script>
             import * as Plot from "@observablehq/plot";
-            // Adaptation du chemin selon la structure standard d'Astro (src/pages vers src/assets)
             import penguins from "../assets/penguins.json";
 
             const plot = Plot.plot({
+                color: {
+                    legend: true,
+                },
                 marks: [
                     Plot.dot(penguins, {
                         x: "culmen_length_mm",
@@ -32,7 +59,7 @@
 
             const div = document.querySelector(
                 "#graphique-penguins",
-            ) as HTMLSelectElement;
+            ) as HTMLDivElement;
             div.append(plot);
         </script>
     </body>

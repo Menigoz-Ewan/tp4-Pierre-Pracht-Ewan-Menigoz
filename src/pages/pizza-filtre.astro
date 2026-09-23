@@ -6,7 +6,7 @@ import "../styles/global.css";
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Penguin Filtre</title>
+        <title>Pizza Filtre</title>
     </head>
     <body class="bg-base-200 min-h-screen p-4 md:p-8">
         <main class="container mx-auto max-w-5xl">
@@ -14,7 +14,7 @@ import "../styles/global.css";
                 <a href="/" class="btn btn-outline btn-primary"
                     >Retour à l'accueil</a
                 >
-                <a href="/penguin-multifiltres" class="btn btn-primary"
+                <a href="/pizza-multifiltres" class="btn btn-primary"
                     >Graphique suivant</a
                 >
             </div>
@@ -24,31 +24,35 @@ import "../styles/global.css";
                     <h1
                         class="card-title text-3xl font-extrabold text-secondary mb-2"
                     >
-                        Manchots Filtrés
+                        Ventes de Pizzas Filtrées
                     </h1>
                     <p class="opacity-75 mb-6">
-                        Sélectionnez une espèce de manchot pour filtrer les
-                        données du graphique.
+                        Sélectionnez une catégorie de pizza pour filtrer les
+                        données du chiffre d'affaires.
                     </p>
 
                     <div class="flex flex-wrap items-center gap-3 mb-6">
-                        <label for="species" class="font-bold text-sm"
-                            >Filtrer par espèce :</label
+                        <label for="category" class="font-bold text-sm"
+                            >Filtrer par catégorie :</label
                         >
                         <select
-                            name="species"
-                            id="species"
+                            name="category"
+                            id="category"
                             class="select select-bordered select-primary select-sm"
                         >
-                            <option value="">Toutes les espèces</option>
-                            <option value="Adelie">Adelie</option>
-                            <option value="Chinstrap">Chinstrap</option>
-                            <option value="Gentoo">Gentoo</option>
+                            <option value="">Toutes les catégories</option>
+                            <option value="Classic">Classique (Classic)</option>
+                            <option value="Specialty"
+                                >Spécialité (Specialty)</option
+                            >
+                            <option value="Vegetarian"
+                                >Végétarienne (Vegetarian)</option
+                            >
                         </select>
                     </div>
 
                     <div
-                        id="graphique-penguins"
+                        id="graphique-pizza"
                         class="overflow-x-auto w-full flex justify-center bg-white p-4 rounded-box border border-base-200"
                     >
                     </div>
@@ -58,16 +62,16 @@ import "../styles/global.css";
 
         <script>
             import * as Plot from "@observablehq/plot";
-            import penguins from "../assets/penguins.json";
+            import pizzas from "../assets/pizza.json";
 
-            const selectSpecies = document.querySelector(
-                "#species",
+            const selectCategory = document.querySelector(
+                "#category",
             ) as HTMLSelectElement;
 
             function renderPlot() {
-                const species = selectSpecies.value;
+                const category = selectCategory.value;
                 const div = document.querySelector(
-                    "#graphique-penguins",
+                    "#graphique-pizza",
                 ) as HTMLDivElement;
 
                 div.innerHTML = "";
@@ -77,12 +81,12 @@ import "../styles/global.css";
                         legend: true,
                     },
                     marks: [
-                        Plot.dot(penguins, {
-                            x: "culmen_length_mm",
-                            y: "culmen_depth_mm",
-                            stroke: "species",
+                        Plot.dot(pizzas, {
+                            x: (d) => new Date(d.order_date),
+                            y: "revenue",
+                            stroke: "category",
                             filter: (d) =>
-                                species === "" || d.species === species,
+                                category === "" || d.category === category,
                         }),
                     ],
                 });
@@ -90,8 +94,7 @@ import "../styles/global.css";
                 div.append(plot);
             }
 
-            selectSpecies.addEventListener("change", renderPlot);
-
+            selectCategory.addEventListener("change", renderPlot);
             renderPlot();
         </script>
     </body>

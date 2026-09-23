@@ -1,46 +1,79 @@
 ---
-
+import "../styles/global.css";
 ---
 
-<html lang="fr">
+<html lang="fr" data-theme="light">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Météo Multi Filtres</title>
     </head>
-    <body class="p-8">
-        <a href="/" class="text-blue-600 underline mb-4 inline-block"
-            >Retour à l'accueil</a
-        >
-        <h1 class="text-2xl font-bold mb-6">Météo : Filtres Multiples</h1>
-
-        <div class="flex flex-wrap gap-6 mb-6">
-            <div>
-                <label for="location" class="font-bold mr-2">Ville :</label>
-                <select
-                    name="location"
-                    id="location"
-                    class="border p-1 rounded"
+    <body class="bg-base-200 min-h-screen p-4 md:p-8">
+        <main class="container mx-auto max-w-5xl">
+            <div class="flex justify-between items-center mb-8">
+                <a href="/" class="btn btn-outline btn-primary"
+                    >Retour à l'accueil</a
                 >
-                    <option value="">Toutes</option>
-                    <option value="Seattle">Seattle</option>
-                    <option value="New York">New York</option>
-                </select>
+                <a href="/pizza-multifiltres" class="btn btn-primary"
+                    >Graphique suivant</a
+                >
             </div>
 
-            <div>
-                <label for="weather" class="font-bold mr-2">Temps :</label>
-                <select name="weather" id="weather" class="border p-1 rounded">
-                    <option value="">Tous</option>
-                    <option value="sun">Soleil</option>
-                    <option value="rain">Pluie</option>
-                    <option value="fog">Brouillard</option>
-                    <option value="drizzle">Bruine</option>
-                    <option value="snow">Neige</option>
-                </select>
-            </div>
-        </div>
+            <div class="card bg-base-100 shadow-xl border border-base-300">
+                <div class="card-body">
+                    <h1
+                        class="card-title text-3xl font-extrabold text-secondary mb-2"
+                    >
+                        Météo : Filtres Multiples
+                    </h1>
+                    <p class="opacity-75 mb-6">
+                        Observations des températures selon la ville et le type
+                        de conditions météorologiques.
+                    </p>
 
-        <div id="graphique-meteo"></div>
+                    <div class="flex flex-wrap gap-4 items-center mb-6">
+                        <div class="flex items-center gap-2">
+                            <label for="location" class="font-bold text-sm"
+                                >Ville :</label
+                            >
+                            <select
+                                name="location"
+                                id="location"
+                                class="select select-bordered select-primary select-sm"
+                            >
+                                <option value="">Toutes</option>
+                                <option value="Seattle">Seattle</option>
+                                <option value="New York">New York</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <label for="weather" class="font-bold text-sm"
+                                >Temps :</label
+                            >
+                            <select
+                                name="weather"
+                                id="weather"
+                                class="select select-bordered select-primary select-sm"
+                            >
+                                <option value="">Tous</option>
+                                <option value="sun">Soleil</option>
+                                <option value="rain">Pluie</option>
+                                <option value="fog">Brouillard</option>
+                                <option value="drizzle">Bruine</option>
+                                <option value="snow">Neige</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div
+                        id="graphique-meteo"
+                        class="overflow-x-auto w-full flex justify-center bg-white p-4 rounded-box border border-base-200"
+                    >
+                    </div>
+                </div>
+            </div>
+        </main>
 
         <script>
             import * as Plot from "@observablehq/plot";
@@ -63,6 +96,9 @@
                 div.innerHTML = "";
 
                 const plot = Plot.plot({
+                    color: {
+                        legend: true,
+                    },
                     marks: [
                         Plot.dot(meteo, {
                             x: (d) => new Date(d.date),

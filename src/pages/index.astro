@@ -1,34 +1,191 @@
 ---
-
+import "../styles/global.css";
 ---
 
-<html lang="fr">
+<html lang="fr" data-theme="light">
   <head>
     <meta charset="utf-8" />
-    <title>TP4 - Graphiques</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TP4 - Data Visualisation</title>
   </head>
-  <body class="p-8">
-    <h1 class="text-2xl font-bold mb-6">TP4 - Observable Plot</h1>
-    <nav class="flex flex-col gap-2">
-      <a href="/simple" class="text-blue-600 underline">1. Simple</a>
-      <a href="/simple-penguin" class="text-blue-600 underline"
-        >2. Simple Penguin</a
+  <body class="bg-base-200 min-h-screen">
+    <div class="navbar bg-base-100 shadow-md mb-8">
+      <div class="flex-1">
+        <a href="/" class="btn btn-ghost text-xl font-bold text-primary"
+          >DataViz Pro</a
+        >
+      </div>
+    </div>
+
+    <main class="container mx-auto px-4 pb-12 max-w-7xl">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+          TP4 - Observable Plot
+        </h1>
+        <p class="text-lg opacity-70">
+          Exploration interactive des données avec Astro et DaisyUI
+        </p>
+      </div>
+
+      <!-- SECTION MANCHOTS -->
+      <h2
+        class="text-3xl font-bold mt-12 mb-6 text-secondary border-b border-base-300 pb-2"
       >
-      <a href="/penguin-filtre" class="text-blue-600 underline"
-        >3. Penguin avec filtre</a
+        Pingouins
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Simple Penguin</h3>
+            <p class="text-sm opacity-80">
+              Nuage de points basique de l'échantillon des manchots.
+            </p>
+            <div class="card-actions justify-end mt-4">
+              <a href="/simple-penguin" class="btn btn-secondary btn-sm"
+                >Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Penguin Filtre</h3>
+            <p class="text-sm opacity-80">Filtrage dynamique par espèce.</p>
+            <div class="card-actions justify-end mt-4">
+              <a href="/penguin-filtre" class="btn btn-secondary btn-sm"
+                >Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Penguin Multi-filtres</h3>
+            <p class="text-sm opacity-80">
+              Filtres combinés : espèce, île, sexe.
+            </p>
+            <div class="card-actions justify-end mt-4">
+              <a href="/penguin-multifiltres" class="btn btn-secondary btn-sm"
+                >Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION MÉTÉO -->
+      <h2
+        class="text-3xl font-bold mt-12 mb-6 text-info border-b border-base-300 pb-2"
       >
-      <a href="/penguin-multifiltres" class="text-blue-600 underline"
-        >4. Penguin avec plusieurs filtres</a
+        Météo
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Météo Simple</h3>
+            <p class="text-sm opacity-80">
+              Évolution globale des températures.
+            </p>
+            <div class="card-actions justify-end mt-4">
+              <a href="/simple-meteo" class="btn btn-info btn-sm text-white"
+                >Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Météo Filtre</h3>
+            <p class="text-sm opacity-80">
+              Analyse des températures maximales par ville.
+            </p>
+            <div class="card-actions justify-end mt-4">
+              <a href="/meteo-filtre" class="btn btn-info btn-sm text-white"
+                >Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Météo Multi-filtres</h3>
+            <p class="text-sm opacity-80">
+              Filtres combinés sur la ville et la météo.
+            </p>
+            <div class="card-actions justify-end mt-4">
+              <a
+                href="/meteo-multifiltres"
+                class="btn btn-info btn-sm text-white">Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION PIZZAS -->
+      <h2
+        class="text-3xl font-bold mt-12 mb-6 text-error border-b border-base-300 pb-2"
       >
-      <a href="/meteo-filtre" class="text-blue-600 underline"
-        >5. Autre dataset : Météo</a
-      >
-      <a href="/meteo-multifiltres" class="text-blue-600 underline"
-        >6. Météo avec plusieurs filtres</a
-      >
-      <a href="/pizza-multifiltres" class="text-blue-600 underline"
-        >7. Pizzas avec plusieurs filtres</a
-      >
-    </nav>
+        Pizzas
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Pizza Simple</h3>
+            <p class="text-sm opacity-80">
+              Aperçu global des ventes de pizzas.
+            </p>
+            <div class="card-actions justify-end mt-4">
+              <a href="/simple-pizza" class="btn btn-error btn-sm text-white"
+                >Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Pizza Filtre</h3>
+            <p class="text-sm opacity-80">Ventes filtrées par catégorie.</p>
+            <div class="card-actions justify-end mt-4">
+              <a href="/pizza-filtre" class="btn btn-error btn-sm text-white"
+                >Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="card bg-base-100 shadow-xl border border-base-300 hover:-translate-y-1 transition-transform"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Pizza Multi-filtres</h3>
+            <p class="text-sm opacity-80">
+              Analyse par catégorie et par jour de la semaine.
+            </p>
+            <div class="card-actions justify-end mt-4">
+              <a
+                href="/pizza-multifiltres"
+                class="btn btn-error btn-sm text-white">Explorer</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>

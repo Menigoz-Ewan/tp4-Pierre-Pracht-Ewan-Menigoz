@@ -1,50 +1,93 @@
 ---
-
+import "../styles/global.css";
 ---
 
-<html lang="fr">
+<html lang="fr" data-theme="light">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Penguin Multi Filtres</title>
     </head>
-    <body class="p-8">
-        <a href="/" class="text-blue-600 underline mb-4 inline-block"
-            >Retour à l'accueil</a
-        >
-        <h1 class="text-2xl font-bold mb-6">Manchots Multi-Filtrés</h1>
-
-        <div class="flex flex-wrap gap-6 mb-6">
-            <div>
-                <label for="species" class="font-bold mr-2">Espèce :</label>
-                <select name="species" id="species" class="border p-1 rounded">
-                    <option value="">Toutes</option>
-                    <option value="Adelie">Adelie</option>
-                    <option value="Chinstrap">Chinstrap</option>
-                    <option value="Gentoo">Gentoo</option>
-                </select>
+    <body class="bg-base-200 min-h-screen p-4 md:p-8">
+        <main class="container mx-auto max-w-5xl">
+            <div class="flex justify-between items-center mb-8">
+                <a href="/" class="btn btn-outline btn-primary"
+                    >Retour à l'accueil</a
+                >
+                <a href="/meteo-filtre" class="btn btn-primary"
+                    >Graphique suivant</a
+                >
             </div>
 
-            <div>
-                <label for="island" class="font-bold mr-2">Île :</label>
-                <select name="island" id="island" class="border p-1 rounded">
-                    <option value="">Toutes</option>
-                    <option value="Biscoe">Biscoe</option>
-                    <option value="Dream">Dream</option>
-                    <option value="Torgersen">Torgersen</option>
-                </select>
-            </div>
+            <div class="card bg-base-100 shadow-xl border border-base-300">
+                <div class="card-body">
+                    <h1
+                        class="card-title text-3xl font-extrabold text-secondary mb-2"
+                    >
+                        Manchots Multi-Filtrés
+                    </h1>
+                    <p class="opacity-75 mb-6">
+                        Combinaison de filtres par espèce, île et sexe
+                        biologique des manchots.
+                    </p>
 
-            <div>
-                <label for="sex" class="font-bold mr-2">Sexe :</label>
-                <select name="sex" id="sex" class="border p-1 rounded">
-                    <option value="">Tous</option>
-                    <option value="MALE">Mâle</option>
-                    <option value="FEMALE">Femelle</option>
-                </select>
-            </div>
-        </div>
+                    <div class="flex flex-wrap gap-4 items-center mb-6">
+                        <div class="flex items-center gap-2">
+                            <label for="species" class="font-bold text-sm"
+                                >Espèce :</label
+                            >
+                            <select
+                                name="species"
+                                id="species"
+                                class="select select-bordered select-primary select-sm"
+                            >
+                                <option value="">Toutes</option>
+                                <option value="Adelie">Adelie</option>
+                                <option value="Chinstrap">Chinstrap</option>
+                                <option value="Gentoo">Gentoo</option>
+                            </select>
+                        </div>
 
-        <div id="graphique-penguins"></div>
+                        <div class="flex items-center gap-2">
+                            <label for="island" class="font-bold text-sm"
+                                >Île :</label
+                            >
+                            <select
+                                name="island"
+                                id="island"
+                                class="select select-bordered select-primary select-sm"
+                            >
+                                <option value="">Toutes</option>
+                                <option value="Biscoe">Biscoe</option>
+                                <option value="Dream">Dream</option>
+                                <option value="Torgersen">Torgersen</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <label for="sex" class="font-bold text-sm"
+                                >Sexe :</label
+                            >
+                            <select
+                                name="sex"
+                                id="sex"
+                                class="select select-bordered select-primary select-sm"
+                            >
+                                <option value="">Tous</option>
+                                <option value="MALE">Mâle</option>
+                                <option value="FEMALE">Femelle</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div
+                        id="graphique-penguins"
+                        class="overflow-x-auto w-full flex justify-center bg-white p-4 rounded-box border border-base-200"
+                    >
+                    </div>
+                </div>
+            </div>
+        </main>
 
         <script>
             import * as Plot from "@observablehq/plot";
@@ -71,6 +114,9 @@
                 div.innerHTML = "";
 
                 const plot = Plot.plot({
+                    color: {
+                        legend: true,
+                    },
                     marks: [
                         Plot.dot(penguins, {
                             x: "culmen_length_mm",

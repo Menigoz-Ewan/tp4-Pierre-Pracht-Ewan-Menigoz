@@ -1,51 +1,79 @@
 ---
-
+import "../styles/global.css";
 ---
 
-<html lang="fr">
+<html lang="fr" data-theme="light">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pizza Multi Filtres</title>
     </head>
-    <body class="p-8">
-        <a href="/" class="text-blue-600 underline mb-4 inline-block"
-            >Retour à l'accueil</a
-        >
-        <h1 class="text-2xl font-bold mb-6">
-            Ventes de Pizzas : Filtres Multiples
-        </h1>
-
-        <div class="flex flex-wrap gap-6 mb-6">
-            <div>
-                <label for="category" class="font-bold mr-2">Catégorie :</label>
-                <select
-                    name="category"
-                    id="category"
-                    class="border p-1 rounded"
+    <body class="bg-base-200 min-h-screen p-4 md:p-8">
+        <main class="container mx-auto max-w-5xl">
+            <div class="flex justify-between items-center mb-8">
+                <a href="/" class="btn btn-outline btn-primary"
+                    >Retour à l'accueil</a
                 >
-                    <option value="">Toutes</option>
-                    <option value="Classic">Classique</option>
-                    <option value="Specialty">Spécialité</option>
-                    <option value="Vegetarian">Végétarienne</option>
-                </select>
             </div>
 
-            <div>
-                <label for="day" class="font-bold mr-2">Jour :</label>
-                <select name="day" id="day" class="border p-1 rounded">
-                    <option value="">Tous</option>
-                    <option value="Monday">Lundi</option>
-                    <option value="Tuesday">Mardi</option>
-                    <option value="Wednesday">Mercredi</option>
-                    <option value="Thursday">Jeudi</option>
-                    <option value="Friday">Vendredi</option>
-                    <option value="Saturday">Samedi</option>
-                    <option value="Sunday">Dimanche</option>
-                </select>
-            </div>
-        </div>
+            <div class="card bg-base-100 shadow-xl border border-base-300">
+                <div class="card-body">
+                    <h1
+                        class="card-title text-3xl font-extrabold text-secondary mb-2"
+                    >
+                        Ventes de Pizzas : Filtres Multiples
+                    </h1>
+                    <p class="opacity-75 mb-6">
+                        Analyse du chiffre d'affaires des commandes selon la
+                        catégorie de pizza et le jour de la semaine.
+                    </p>
 
-        <div id="graphique-pizza"></div>
+                    <div class="flex flex-wrap gap-4 items-center mb-6">
+                        <div class="flex items-center gap-2">
+                            <label for="category" class="font-bold text-sm"
+                                >Catégorie :</label
+                            >
+                            <select
+                                name="category"
+                                id="category"
+                                class="select select-bordered select-primary select-sm"
+                            >
+                                <option value="">Toutes</option>
+                                <option value="Classic">Classique</option>
+                                <option value="Specialty">Spécialité</option>
+                                <option value="Vegetarian">Végétarienne</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <label for="day" class="font-bold text-sm"
+                                >Jour :</label
+                            >
+                            <select
+                                name="day"
+                                id="day"
+                                class="select select-bordered select-primary select-sm"
+                            >
+                                <option value="">Tous</option>
+                                <option value="Monday">Lundi</option>
+                                <option value="Tuesday">Mardi</option>
+                                <option value="Wednesday">Mercredi</option>
+                                <option value="Thursday">Jeudi</option>
+                                <option value="Friday">Vendredi</option>
+                                <option value="Saturday">Samedi</option>
+                                <option value="Sunday">Dimanche</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div
+                        id="graphique-pizza"
+                        class="overflow-x-auto w-full flex justify-center bg-white p-4 rounded-box border border-base-200"
+                    >
+                    </div>
+                </div>
+            </div>
+        </main>
 
         <script>
             import * as Plot from "@observablehq/plot";
@@ -68,6 +96,9 @@
                 div.innerHTML = "";
 
                 const plot = Plot.plot({
+                    color: {
+                        legend: true,
+                    },
                     marks: [
                         Plot.dot(pizzas, {
                             x: (d) => new Date(d.order_date),
