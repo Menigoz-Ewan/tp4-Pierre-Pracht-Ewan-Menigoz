@@ -1,0 +1,37 @@
+---
+
+---
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Simple Penguin</title>
+    </head>
+    <body class="p-8">
+        <a href="/" class="text-blue-600 underline mb-4 inline-block"
+            >Retour à l'accueil</a
+        >
+        <h1 class="text-2xl font-bold mb-6">Graphique des Manchots</h1>
+
+        <div id="graphique-penguins"></div>
+
+        <script>
+            import * as Plot from "@observablehq/plot";
+            // Adaptation du chemin selon la structure standard d'Astro (src/pages vers src/assets)
+            import penguins from "../assets/penguins.json";
+
+            const plot = Plot.plot({
+                marks: [
+                    Plot.dot(penguins, {
+                        x: "culmen_length_mm",
+                        y: "culmen_depth_mm",
+                        stroke: "species",
+                    }),
+                ],
+            });
+
+            const div = document.querySelector("#graphique-penguins");
+            div.append(plot);
+        </script>
+    </body>
+</html>
