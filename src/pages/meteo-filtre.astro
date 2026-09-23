@@ -22,10 +22,9 @@
                 id="filtre-ville"
                 class="border p-1 rounded"
             >
-                <option value="">Tous</option>
-                <!-- Remplace ces options par les vraies valeurs de ton JSON -->
-                <option value="Besançon">Besançon</option>
-                <option value="Paris">Paris</option>
+                <option value="">Toutes les villes</option>
+                <option value="Seattle">Seattle</option>
+                <option value="New York">New York</option>
             </select>
         </div>
 
@@ -33,6 +32,8 @@
 
         <script>
             import * as Plot from "@observablehq/plot";
+
+            // Assure-toi que le nom du fichier ici correspond bien à celui dans ton dossier assets
             import meteo from "../assets/weather.json";
 
             const selectFiltre = document.querySelector(
@@ -48,14 +49,16 @@
                 div.innerHTML = "";
 
                 const plot = Plot.plot({
+                    // Optionnel : ajouter des marges si les dates se chevauchent en bas
+                    marginBottom: 50,
                     marks: [
-                        // Adapte 'x', 'y' et 'stroke' avec les vrais noms de colonnes de ton JSON
                         Plot.dot(meteo, {
                             x: "date",
-                            y: "temperature",
-                            stroke: "ville",
+                            y: "temp_max", // Utilisation de la température maximale
+                            stroke: "location", // Les couleurs seront basées sur la ville (location)
                             filter: (d) =>
-                                valeurFiltre === "" || d.ville === valeurFiltre,
+                                valeurFiltre === "" ||
+                                d.location === valeurFiltre,
                         }),
                     ],
                 });
