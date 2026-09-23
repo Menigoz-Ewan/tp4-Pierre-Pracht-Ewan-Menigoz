@@ -1,0 +1,87 @@
+---
+
+---
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Météo Multi Filtres</title>
+    </head>
+    <body class="p-8">
+        <a href="/" class="text-blue-600 underline mb-4 inline-block"
+            >Retour à l'accueil</a
+        >
+        <h1 class="text-2xl font-bold mb-6">Météo : Filtres Multiples</h1>
+
+        <div class="flex flex-wrap gap-6 mb-6">
+            <div>
+                <label for="location" class="font-bold mr-2">Ville :</label>
+                <select
+                    name="location"
+                    id="location"
+                    class="border p-1 rounded"
+                >
+                    <option value="">Toutes</option>
+                    <option value="Seattle">Seattle</option>
+                    <option value="New York">New York</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="weather" class="font-bold mr-2">Temps :</label>
+                <select name="weather" id="weather" class="border p-1 rounded">
+                    <option value="">Tous</option>
+                    <option value="sun">Soleil</option>
+                    <option value="rain">Pluie</option>
+                    <option value="fog">Brouillard</option>
+                    <option value="drizzle">Bruine</option>
+                    <option value="snow">Neige</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="graphique-meteo"></div>
+
+        <script>
+            import * as Plot from "@observablehq/plot";
+            import meteo from "../assets/weather.json";
+
+            const selectLocation = document.querySelector(
+                "#location",
+            ) as HTMLSelectElement;
+            const selectWeather = document.querySelector(
+                "#weather",
+            ) as HTMLSelectElement;
+
+            function renderPlot() {
+                const location = selectLocation.value;
+                const weather = selectWeather.value;
+
+                const div = document.querySelector(
+                    "#graphique-meteo",
+                ) as HTMLDivElement;
+                div.innerHTML = "";
+
+                const plot = Plot.plot({
+                    marks: [
+                        Plot.dot(meteo, {
+                            x: (d) => new Date(d.date),
+                            y: "temp_max",
+                            stroke: "weather",
+                            filter: (d) =>
+                                (location === "" || d.location === location) &&
+                                (weather === "" || d.weather === weather),
+                        }),
+                    ],
+                });
+
+                div.append(plot);
+            }
+
+            selectLocation.addEventListener("change", renderPlot);
+            selectWeather.addEventListener("change", renderPlot);
+
+            renderPlot();
+        </script>
+    </body>
+</html>

@@ -32,8 +32,6 @@
 
         <script>
             import * as Plot from "@observablehq/plot";
-
-            // Assure-toi que le nom du fichier ici correspond bien à celui dans ton dossier assets
             import meteo from "../assets/weather.json";
 
             const selectFiltre = document.querySelector(
@@ -49,13 +47,12 @@
                 div.innerHTML = "";
 
                 const plot = Plot.plot({
-                    // Optionnel : ajouter des marges si les dates se chevauchent en bas
-                    marginBottom: 50,
                     marks: [
                         Plot.dot(meteo, {
-                            x: "date",
-                            y: "temp_max", // Utilisation de la température maximale
-                            stroke: "location", // Les couleurs seront basées sur la ville (location)
+                            // Conversion du texte en objet Date pour aérer l'axe X
+                            x: (d) => new Date(d.date),
+                            y: "temp_max",
+                            stroke: "location",
                             filter: (d) =>
                                 valeurFiltre === "" ||
                                 d.location === valeurFiltre,
