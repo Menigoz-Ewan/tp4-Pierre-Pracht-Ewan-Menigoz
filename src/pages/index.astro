@@ -1,21 +1,18 @@
 ---
-import PlotFigure from "../components/PlotFigure.astro";
-import Layout from "../layouts/Layout.astro";
-import * as Plot from "@observablehq/plot";
-import penguins from "../assets/penguins.json";
 ---
 
-<Layout>
-  <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-  <PlotFigure
-    options={{
-      marks: [
-        Plot.dot(penguins, {
-          x: "culmen_length_mm",
-          y: "culmen_depth_mm",
-          stroke: "species",
-        }),
-      ],
-    }}
-  />
-</Layout>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>TP4 - Graphiques</title>
+  </head>
+  <body class="p-8">
+    <h1 class="text-2xl font-bold mb-6">TP4 - Observable Plot</h1>
+    <nav class="flex flex-col gap-2">
+      <a href="/simple" class="text-blue-600 underline">1. Simple</a>
+      <a href="/simple-penguin" class="text-blue-600 underline">2. Simple Penguin</a>
+      <a href="/penguin-filtre" class="text-blue-600 underline">3. Penguin avec filtre</a>
+      <a href="/penguin-multifiltres" class="text-blue-600 underline">4. Penguin avec plusieurs filtres</a>
+    </nav>
+  </body>
+</html>
