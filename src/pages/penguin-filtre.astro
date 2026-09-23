@@ -1,0 +1,62 @@
+---
+
+---
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Penguin Filtre</title>
+    </head>
+    <body class="p-8">
+        <a href="/" class="text-blue-600 underline mb-4 inline-block"
+            >Retour à l'accueil</a
+        >
+        <h1 class="text-2xl font-bold mb-6">Manchots Filtrés</h1>
+
+        <div class="mb-4">
+            <label for="species" class="font-bold mr-2"
+                >Filtrer par espèce :</label
+            >
+            <select name="species" id="species" class="border p-1 rounded">
+                <option value="">All species</option>
+                <option value="Adelie">Adelie</option>
+                <option value="Chinstrap">Chinstrap</option>
+                <option value="Gentoo">Gentoo</option>
+            </select>
+        </div>
+
+        <div id="graphique-penguins"></div>
+
+        <script>
+            import * as Plot from "@observablehq/plot";
+            import penguins from "../assets/penguins.json";
+
+            const selectSpecies = document.querySelector("#species");
+
+            function renderPlot() {
+                const species = selectSpecies.value;
+                const div = document.querySelector("#graphique-penguins");
+
+                div.innerHTML = "";
+
+                const plot = Plot.plot({
+                    marks: [
+                        Plot.dot(penguins, {
+                            x: "culmen_length_mm",
+                            y: "culmen_depth_mm",
+                            stroke: "species",
+                            filter: (d) =>
+                                species === "" || d.species === species,
+                        }),
+                    ],
+                });
+
+                div.append(plot);
+            }
+
+            selectSpecies.addEventListener("change", renderPlot);
+
+            renderPlot();
+        </script>
+    </body>
+</html>
