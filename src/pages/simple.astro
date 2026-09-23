@@ -22,7 +22,9 @@
                 { length: 10000 },
                 Plot.binX({ y: "count" }, { x: Math.random }),
             ).plot();
-            const div = document.querySelector("#mon-graphique");
+            const div = document.querySelector(
+                "#mon-graphique",
+            ) as HTMLSelectElement;
             div.append(plot);
         </script>
     </body>
